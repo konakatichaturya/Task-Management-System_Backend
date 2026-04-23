@@ -25,4 +25,8 @@ public class ProjectController {
     public String addMember(@PathVariable Long id, @RequestBody AddMemberRequest request) {
         return projectService.addMember(id, request.getUserId());
     }
+    @DeleteMapping("/{id}/members/{userId}")
+    public String removeMember(@PathVariable Long id, @PathVariable Long userId) {
+        return projectService.removeMember(id, userId);
+    }
 }

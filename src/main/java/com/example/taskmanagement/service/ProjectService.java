@@ -62,4 +62,11 @@ public class ProjectService {
         projectMemberRepository.save(member);
         return "Member added successfully";
     }
+    public String removeMember(Long projectId, Long userId) {
+        ProjectMember member = projectMemberRepository.findByProjectIdAndUserId(projectId, userId)
+                .orElseThrow(() -> new RuntimeException("Project member not found"));
+
+        projectMemberRepository.delete(member);
+        return "Member removed successfully";
+    }
 }

@@ -4,6 +4,7 @@ import com.example.taskmanagement.dto.TaskRequest;
 import com.example.taskmanagement.entity.Task;
 import com.example.taskmanagement.service.TaskService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -33,5 +34,10 @@ public class TaskController {
                                @RequestParam(required = false) String status,
                                @RequestParam(required = false) Long actingUserId) {
         return taskService.getTasks(projectId, userId, status, actingUserId);
+    }
+    @GetMapping("/paged")
+    public Page<Task> getTasksPaged(@RequestParam int page,
+                                    @RequestParam int size) {
+        return taskService.getTasksPaged(page, size);
     }
 }

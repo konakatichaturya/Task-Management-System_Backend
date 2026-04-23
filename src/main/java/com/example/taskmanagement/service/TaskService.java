@@ -11,6 +11,8 @@ import com.example.taskmanagement.repository.ProjectRepository;
 import com.example.taskmanagement.repository.TaskRepository;
 import com.example.taskmanagement.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -142,5 +144,8 @@ public class TaskService {
         }
 
         return taskRepository.findAll();
+    }
+    public Page<Task> getTasksPaged(int page, int size) {
+        return taskRepository.findAll(PageRequest.of(page, size));
     }
 }
