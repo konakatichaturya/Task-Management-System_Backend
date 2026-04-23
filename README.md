@@ -19,7 +19,7 @@ Create a PostgreSQL database:
 
 taskdb
 
-Update application.properties:
+# Update application.properties:
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/taskdb
 spring.datasource.username=your_username
@@ -27,9 +27,23 @@ spring.datasource.password=your_password
 
 spring.jpa.hibernate.ddl-auto=update
 
-Run the application:
+# Run the application:
 
 TaskmanagementApplication.java
+
+**Authentication (JWT)**
+This application uses JWT (JSON Web Token) for securing APIs.
+Login endpoint returns a token
+Token must be passed in Authorization header for protected APIs
+Example:
+Authorization: Bearer <your_token
+# Public Endpoints
+POST /auth/register
+POST /auth/login
+# Protected Endpoints
+Projects APIs
+Tasks APIs
+Comments APIs
 
 **Features Implemented**
 **User Management**
@@ -44,17 +58,16 @@ Remove members from project
 Create task
 Assign task to project member
 Update task status
-Restrict updates:
+## Restrict updates:
 Only assigned user or admin can update
-Prevent invalid status transitions (e.g., DONE → IN_PROGRESS)
+Prevent invalid status transitions (ex: DONE -> IN_PROGRESS)
 **Comments Feature (Addon)**
 Add comment to task
 View all comments for a task
 **Pagination (Addon)**
-
 Fetch tasks with pagination:
-
 GET /tasks/paged?page=0&size=5
+
 **Business Rules**
 - Only project members can access tasks
 - Only assigned user or admin can update tasks
@@ -96,5 +109,14 @@ Import the file:
 'task-management-postman-collection.json'
 into Postman to test all endpoints.
 
+## Example:
+Authorization: Bearer <your_token>
+# Public endpoints:
+- POST /auth/register
+- POST /auth/login
+# Protected endpoints:
+- Projects
+- Tasks
+- Comments
 **Author**
 **Chaturya Konakati**
