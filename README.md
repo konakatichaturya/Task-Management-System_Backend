@@ -90,8 +90,11 @@ Currently, user-based validation is implemented using request data. JWT-based au
 src/ ├── controller ├── service ├── repository ├── entity ├── dto ├── config
 
 **Postman Collection**
+A Postman collection is included in this repository for testing the APIs.
 
-A Postman collection can be added to test all APIs easily.
+Import the file:
+'task-management-postman-collection.json'
+into Postman to test all endpoints.
 
 **Author**
 **Chaturya Konakati**
