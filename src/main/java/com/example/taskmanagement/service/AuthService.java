@@ -5,15 +5,18 @@ import com.example.taskmanagement.dto.LoginRequest;
 import com.example.taskmanagement.dto.RegisterRequest;
 import com.example.taskmanagement.entity.User;
 import com.example.taskmanagement.repository.UserRepository;
+import com.example.taskmanagement.security.JwtUtil;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
+        this.jwtUtil = jwtUtil;
     }
 
     public String register(RegisterRequest request) {
@@ -39,6 +42,7 @@ public class AuthService {
             throw new RuntimeException("Invalid password");
         }
 
-        return new AuthResponse("Login successful");
+        String token = jwtUtil.generateToken(user.getEmail());
+        return new AuthResponse(token);
     }
-}
+} 
