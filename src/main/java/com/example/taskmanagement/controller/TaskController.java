@@ -40,4 +40,19 @@ public class TaskController {
                                     @RequestParam int size) {
         return taskService.getTasksPaged(page, size);
     }
+    @GetMapping("/project")
+    public List<Task> getTasksByProject(@RequestParam Long projectId) {
+        return taskService.getTasksByProject(projectId);
+    }
+
+    @GetMapping("/status")
+    public List<Task> getTasksByStatus(@RequestParam String status) {
+        return taskService.getTasksByStatus(status);
+    }
+
+    @GetMapping("/project-status")
+    public List<Task> getTasksByProjectAndStatus(@RequestParam Long projectId,
+                                                 @RequestParam String status) {
+        return taskService.getTasksByProjectAndStatus(projectId, status);
+    }
 }

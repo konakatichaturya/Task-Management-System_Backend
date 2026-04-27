@@ -94,8 +94,16 @@ public class TaskService {
             TaskStatus current = task.getStatus();
             TaskStatus next = TaskStatus.valueOf(request.getStatus().toUpperCase());
 
+            if (current == TaskStatus.TODO && next == TaskStatus.DONE) {
+                throw new RuntimeException("Invalid status transition: TODO must move to IN_PROGRESS first");
+            }
+
+            if (current == TaskStatus.IN_PROGRESS && next == TaskStatus.TODO) {
+                throw new RuntimeException("Invalid status transition: IN_PROGRESS cannot move back to TODO");
+            }
+
             if (current == TaskStatus.DONE && next != TaskStatus.DONE) {
-                throw new RuntimeException("Invalid status transition from DONE");
+                throw new RuntimeException("Invalid status transition: DONE cannot be changed");
             }
 
             task.setStatus(next);
@@ -147,5 +155,18 @@ public class TaskService {
     }
     public Page<Task> getTasksPaged(int page, int size) {
         return taskRepository.findAll(PageRequest.of(page, size));
+    }
+    public List<Task> getTasksByProject(Long projectId) {
+        return taskRepository.findByProjectId(projectId);
+    }
+
+    public List<Task> getTasksByStatus(String status) {
+        TaskStatus taskStatus = TaskStatus.valueOf(status.toUpperCase());
+        return taskRepository.findByStatus(taskStatus);
+    }
+
+    public List<Task> getTasksByProjectAndStatus(Long projectId, String status) {
+        TaskStatus taskStatus = TaskStatus.valueOf(status.toUpperCase());
+        return taskRepository.findByProjectIdAndStatus(projectId, taskStatus);
     }
 }

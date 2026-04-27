@@ -26,4 +26,5 @@ public class CommentController {
     public List<Comment> getComments(@PathVariable Long id) {
         return commentService.getComments(id);
     }
+
 }
