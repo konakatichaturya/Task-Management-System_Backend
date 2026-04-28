@@ -15,7 +15,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"name\": \"Task Management App\",\r\n  \"description\": \"Backend project\",\r\n  \"createdByUserId\": 4\r\n}",
+          "raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"johnDoe@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"ADMIN\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -23,14 +23,44 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/projects",
+          "raw": "http://localhost:8080/auth/register",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "projects"
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"sahithi23@gmail.com\",\r\n    \"password\" :\"123456789\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "login"
           ]
         }
       },
@@ -276,10 +306,16 @@
       },
       "request": {
         "method": "GET",
-        "header": [],
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYWdhbmEyM0BnbWFpbC5jb20iLCJpYXQiOjE3Nzc0MDg1OTksImV4cCI6MTc3NzQ5NDk5OX0.oVkmynz6b8Ra5Bi55_nJTfNBv5fmJX6beDP94TT0Ojw",
+            "type": "text"
+          }
+        ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"content\": \"This task is in progress\",\r\n  \"userId\": 3\r\n}",
+          "raw": "",
           "options": {
             "raw": {
               "language": "json"
@@ -287,7 +323,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/tasks/1/comments",
+          "raw": "http://localhost:8080/tasks/paged?page=0&size=3",
           "protocol": "http",
           "host": [
             "localhost"
@@ -295,37 +331,17 @@
           "port": "8080",
           "path": [
             "tasks",
-            "1",
-            "comments"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Create Project",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"name\": \"John2\",\r\n  \"email\": \"john2@gmail.com\",\r\n  \"password\": \"1234562\",\r\n  \"role\": \"ADMIN\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/auth/register",
-          "protocol": "http",
-          "host": [
-            "localhost"
+            "paged"
           ],
-          "port": "8080",
-          "path": [
-            "auth",
-            "register"
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "3"
+            }
           ]
         }
       },
