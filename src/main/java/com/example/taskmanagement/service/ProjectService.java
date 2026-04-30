@@ -8,6 +8,7 @@ import com.example.taskmanagement.repository.ProjectMemberRepository;
 import com.example.taskmanagement.repository.ProjectRepository;
 import com.example.taskmanagement.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class ProjectService {
@@ -68,5 +69,22 @@ public class ProjectService {
 
         projectMemberRepository.delete(member);
         return "Member removed successfully";
+    }
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
+    }
+    public Project getProjectByIdForMember(Long projectId, Long userId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+
+        boolean isMember = project.getMembers()
+                .stream()
+                .anyMatch(user -> user.getId().equals(userId));
+
+        if (!isMember) {
+            throw new RuntimeException("You are not assigned to this project");
+        }
+
+        return project;
     }
 }
